@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App - Drag & Drop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📋 My Todo App</h1>
+
+        <!-- Add New Task Section -->
+        <div class="add-task-section">
+            <input type="text" id="taskInput" placeholder="Enter a new task...">
+            <select id="categorySelect">
+                <option value="work">Work</option>
+                <option value="personal">Personal</option>
+                <option value="urgent">Urgent</option>
+                <option value="completed">Completed</option>
+            </select>
+            <button id="addTaskBtn">Add Task</button>
+        </div>
+
+        <!-- Categories Grid -->
+        <div class="categories-grid">
+            <!-- Work Category -->
+            <div class="category" data-category="work">
+                <div class="category-header">
+                    <h2>💼 Work</h2>
+                    <span class="task-count">0</span>
+                </div>
+                <div class="task-list" id="work-list" data-category="work">
+                    <!-- Tasks will be added here -->
+                </div>
+            </div>
+
+            <!-- Personal Category -->
+            <div class="category" data-category="personal">
+                <div class="category-header">
+                    <h2>🏠 Personal</h2>
+                    <span class="task-count">0</span>
+                </div>
+                <div class="task-list" id="personal-list" data-category="personal">
+                    <!-- Tasks will be added here -->
+                </div>
+            </div>
+
+            <!-- Urgent Category -->
+            <div class="category" data-category="urgent">
+                <div class="category-header">
+                    <h2>🔥 Urgent</h2>
+                    <span class="task-count">0</span>
+                </div>
+                <div class="task-list" id="urgent-list" data-category="urgent">
+                    <!-- Tasks will be added here -->
+                </div>
+            </div>
+
+            <!-- Completed Category -->
+            <div class="category" data-category="completed">
+                <div class="category-header">
+                    <h2>✅ Completed</h2>
+                    <span class="task-count">0</span>
+                </div>
+                <div class="task-list" id="completed-list" data-category="completed">
+                    <!-- Tasks will be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
