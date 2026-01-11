@@ -245,13 +245,18 @@ function init() {
 }
 
 function resizeCanvas() {
-    const container = canvas.parentElement;
-    const rect = container.getBoundingClientRect();
+    const gameScreen = document.getElementById('game-screen');
+    const rect = gameScreen.getBoundingClientRect();
+
+    // Only resize if screen is visible and has dimensions
+    if (rect.width === 0 || rect.height === 0) {
+        return;
+    }
 
     // Account for HUD and controls
     const hudHeight = 60;
     const controlsHeight = 130;
-    const availableHeight = rect.height - hudHeight - controlsHeight;
+    const availableHeight = Math.max(200, rect.height - hudHeight - controlsHeight);
 
     canvas.width = rect.width;
     canvas.height = availableHeight;
@@ -312,33 +317,55 @@ function setupTouchControls() {
         btn.addEventListener('touchcancel', e => e.preventDefault(), { passive: false });
     });
 
-    // Left button
+    // Left button - touch events
     btnLeft.addEventListener('touchstart', () => { touch.left = true; });
     btnLeft.addEventListener('touchend', () => { touch.left = false; });
     btnLeft.addEventListener('touchcancel', () => { touch.left = false; });
+    // Left button - mouse events (for testing)
+    btnLeft.addEventListener('mousedown', () => { touch.left = true; });
+    btnLeft.addEventListener('mouseup', () => { touch.left = false; });
+    btnLeft.addEventListener('mouseleave', () => { touch.left = false; });
 
-    // Right button
+    // Right button - touch events
     btnRight.addEventListener('touchstart', () => { touch.right = true; });
     btnRight.addEventListener('touchend', () => { touch.right = false; });
     btnRight.addEventListener('touchcancel', () => { touch.right = false; });
+    // Right button - mouse events (for testing)
+    btnRight.addEventListener('mousedown', () => { touch.right = true; });
+    btnRight.addEventListener('mouseup', () => { touch.right = false; });
+    btnRight.addEventListener('mouseleave', () => { touch.right = false; });
 
-    // Jump button
+    // Jump button - touch events
     btnJump.addEventListener('touchstart', () => {
         touch.jump = true;
         jump();
     });
     btnJump.addEventListener('touchend', () => { touch.jump = false; });
     btnJump.addEventListener('touchcancel', () => { touch.jump = false; });
+    // Jump button - mouse events (for testing)
+    btnJump.addEventListener('mousedown', () => {
+        touch.jump = true;
+        jump();
+    });
+    btnJump.addEventListener('mouseup', () => { touch.jump = false; });
+    btnJump.addEventListener('mouseleave', () => { touch.jump = false; });
 
-    // Action button
+    // Action button - touch events
     btnAction.addEventListener('touchstart', () => {
         touch.action = true;
         usePower();
     });
     btnAction.addEventListener('touchend', () => { touch.action = false; });
     btnAction.addEventListener('touchcancel', () => { touch.action = false; });
+    // Action button - mouse events (for testing)
+    btnAction.addEventListener('mousedown', () => {
+        touch.action = true;
+        usePower();
+    });
+    btnAction.addEventListener('mouseup', () => { touch.action = false; });
+    btnAction.addEventListener('mouseleave', () => { touch.action = false; });
 
-    // Prevent page scrolling/bouncing
+    // Prevent page scrolling/bouncing on touch devices
     document.body.addEventListener('touchmove', e => {
         if (gameState === 'playing') {
             e.preventDefault();
@@ -377,18 +404,33 @@ function populateLevelSelect() {
 // ===== GAME CONTROL =====
 function startLevel(num) {
     currentLevel = num;
-    loadLevel(num);
     gameState = 'playing';
+
+    // IMPORTANT: Show screen FIRST so canvas has dimensions
     showScreen('game-screen');
-    levelStartTime = Date.now();
     document.getElementById('pause-btn').style.display = 'block';
+
+    // Now resize canvas (screen is visible, so dimensions work)
+    resizeCanvas();
+
+    // Now load level with correct canvas dimensions
+    loadLevel(num);
+
+    levelStartTime = Date.now();
     gameLoop();
 }
 
 function loadLevel(num) {
     const level = LEVELS[num - 1];
-    const scaleX = canvas.width / 400;
-    const scaleY = canvas.height / 560;
+
+    // Safety check - ensure canvas has valid dimensions
+    if (canvas.width === 0 || canvas.height === 0) {
+        console.error('Canvas has no dimensions, cannot load level');
+        resizeCanvas();
+    }
+
+    const scaleX = canvas.width / 400 || 1;
+    const scaleY = canvas.height / 560 || 1;
 
     // Reset player
     player.x = level.start[0] * scaleX;
