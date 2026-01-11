@@ -2,9 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kenzie's Adventure - The Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>Kenzie</title>
     <link rel="stylesheet" href="kenzie.css">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23fd79a8'/><text x='50' y='65' text-anchor='middle' font-size='40'>^_^</text></svg>">
 </head>
 <body>
     <div class="game-container">
@@ -12,16 +18,14 @@
         <div id="main-menu" class="screen active">
             <div class="title-container">
                 <h1 class="game-title">KENZIE</h1>
-                <p class="subtitle">The Great Adventure</p>
+                <p class="subtitle">Tap to Adventure!</p>
                 <div class="kenzie-logo"></div>
             </div>
             <div class="menu-buttons">
-                <button class="menu-btn" id="start-btn">Start Adventure</button>
-                <button class="menu-btn" id="how-to-play-btn">How to Play</button>
-                <button class="menu-btn" id="high-scores-btn">High Scores</button>
-                <button class="menu-btn" id="settings-btn">Settings</button>
+                <button class="menu-btn" id="start-btn">Play</button>
+                <button class="menu-btn secondary" id="how-to-play-btn">How to Play</button>
+                <button class="menu-btn secondary" id="high-scores-btn">Scores</button>
             </div>
-            <p class="credits">A Magical Journey Awaits!</p>
         </div>
 
         <!-- How to Play Screen -->
@@ -29,89 +33,46 @@
             <h2>How to Play</h2>
             <div class="instructions">
                 <div class="instruction-item">
-                    <span class="key">Arrow Keys / WASD</span>
-                    <span class="desc">Move Kenzie around</span>
+                    <div class="touch-demo left-right"></div>
+                    <span class="desc">Tap left/right to move</span>
                 </div>
                 <div class="instruction-item">
-                    <span class="key">SPACE</span>
-                    <span class="desc">Jump / Double Jump</span>
+                    <div class="touch-demo jump"></div>
+                    <span class="desc">Tap JUMP to jump</span>
                 </div>
                 <div class="instruction-item">
-                    <span class="key">E</span>
-                    <span class="desc">Interact / Collect</span>
+                    <div class="touch-demo double-tap"></div>
+                    <span class="desc">Tap again to double jump!</span>
                 </div>
                 <div class="instruction-item">
-                    <span class="key">Q</span>
-                    <span class="desc">Use Special Power</span>
-                </div>
-                <div class="instruction-item">
-                    <span class="key">P / ESC</span>
-                    <span class="desc">Pause Game</span>
+                    <div class="touch-demo action"></div>
+                    <span class="desc">Tap ACT for powers</span>
                 </div>
             </div>
             <div class="game-tips">
-                <h3>Tips</h3>
+                <h3>Goals</h3>
                 <ul>
-                    <li>Collect gems to increase your score</li>
-                    <li>Defeat enemies by jumping on them</li>
-                    <li>Find power-ups to gain abilities</li>
-                    <li>Reach the portal to complete each level</li>
-                    <li>Don't fall into the void!</li>
+                    <li>Collect gems to unlock portal</li>
+                    <li>Jump on enemies to defeat them</li>
+                    <li>Grab power-ups for abilities</li>
+                    <li>Reach the portal to win!</li>
                 </ul>
             </div>
-            <button class="menu-btn back-btn" id="back-from-help">Back to Menu</button>
+            <button class="menu-btn" id="back-from-help">Back</button>
         </div>
 
         <!-- High Scores Screen -->
         <div id="high-scores" class="screen">
             <h2>High Scores</h2>
-            <div class="scores-list" id="scores-list">
-                <!-- Scores will be populated here -->
-            </div>
-            <button class="menu-btn back-btn" id="back-from-scores">Back to Menu</button>
-        </div>
-
-        <!-- Settings Screen -->
-        <div id="settings" class="screen">
-            <h2>Settings</h2>
-            <div class="settings-options">
-                <div class="setting-item">
-                    <label>Sound Effects</label>
-                    <input type="checkbox" id="sfx-toggle" checked>
-                </div>
-                <div class="setting-item">
-                    <label>Music</label>
-                    <input type="checkbox" id="music-toggle" checked>
-                </div>
-                <div class="setting-item">
-                    <label>Difficulty</label>
-                    <select id="difficulty-select">
-                        <option value="easy">Easy</option>
-                        <option value="normal" selected>Normal</option>
-                        <option value="hard">Hard</option>
-                    </select>
-                </div>
-                <div class="setting-item">
-                    <label>Character Skin</label>
-                    <select id="skin-select">
-                        <option value="default">Classic Kenzie</option>
-                        <option value="ninja">Ninja Kenzie</option>
-                        <option value="wizard">Wizard Kenzie</option>
-                        <option value="robot">Robot Kenzie</option>
-                    </select>
-                </div>
-            </div>
-            <button class="menu-btn" id="clear-data-btn">Clear Save Data</button>
-            <button class="menu-btn back-btn" id="back-from-settings">Back to Menu</button>
+            <div class="scores-list" id="scores-list"></div>
+            <button class="menu-btn" id="back-from-scores">Back</button>
         </div>
 
         <!-- Level Select Screen -->
         <div id="level-select" class="screen">
             <h2>Select Level</h2>
-            <div class="levels-grid" id="levels-grid">
-                <!-- Levels will be populated here -->
-            </div>
-            <button class="menu-btn back-btn" id="back-from-levels">Back to Menu</button>
+            <div class="levels-grid" id="levels-grid"></div>
+            <button class="menu-btn" id="back-from-levels">Back</button>
         </div>
 
         <!-- Game Screen -->
@@ -122,52 +83,53 @@
                         <div class="health-fill" id="health-fill"></div>
                     </div>
                     <div class="lives-display">
-                        <span id="lives-count">3</span> Lives
+                        <span class="heart-icon"></span><span id="lives-count">3</span>
                     </div>
                 </div>
                 <div class="hud-center">
-                    <div class="level-display">Level <span id="current-level">1</span></div>
-                    <div class="score-display">Score: <span id="score">0</span></div>
+                    <div class="level-display">Lv.<span id="current-level">1</span></div>
                 </div>
                 <div class="hud-right">
                     <div class="gems-display">
-                        <span class="gem-icon"></span>
-                        <span id="gems-count">0</span>
+                        <span class="gem-icon"></span><span id="gems-count">0</span>
                     </div>
-                    <div class="power-display" id="power-display">
-                        <span class="power-icon"></span>
-                        <span id="power-name">None</span>
-                    </div>
+                    <div class="score-display"><span id="score">0</span></div>
                 </div>
             </div>
+
             <canvas id="game-canvas"></canvas>
-            <div class="mobile-controls" id="mobile-controls">
-                <div class="d-pad">
-                    <button class="control-btn up" id="btn-up"></button>
-                    <button class="control-btn left" id="btn-left"></button>
-                    <button class="control-btn right" id="btn-right"></button>
-                    <button class="control-btn down" id="btn-down"></button>
+
+            <button class="pause-btn" id="pause-btn">II</button>
+
+            <div class="touch-controls">
+                <div class="control-left">
+                    <button class="touch-btn move-btn" id="btn-left">
+                        <span class="arrow-left"></span>
+                    </button>
+                    <button class="touch-btn move-btn" id="btn-right">
+                        <span class="arrow-right"></span>
+                    </button>
                 </div>
-                <div class="action-buttons">
-                    <button class="control-btn jump" id="btn-jump">JUMP</button>
-                    <button class="control-btn action" id="btn-action">ACT</button>
+                <div class="control-right">
+                    <button class="touch-btn action-btn" id="btn-action">ACT</button>
+                    <button class="touch-btn jump-btn" id="btn-jump">JUMP</button>
                 </div>
             </div>
         </div>
 
         <!-- Pause Screen -->
         <div id="pause-screen" class="screen overlay">
-            <div class="pause-content">
+            <div class="popup-content">
                 <h2>PAUSED</h2>
                 <button class="menu-btn" id="resume-btn">Resume</button>
-                <button class="menu-btn" id="restart-btn">Restart Level</button>
-                <button class="menu-btn" id="quit-btn">Quit to Menu</button>
+                <button class="menu-btn secondary" id="restart-btn">Restart</button>
+                <button class="menu-btn secondary" id="quit-btn">Quit</button>
             </div>
         </div>
 
         <!-- Level Complete Screen -->
         <div id="level-complete" class="screen overlay">
-            <div class="complete-content">
+            <div class="popup-content">
                 <h2>Level Complete!</h2>
                 <div class="stars-display" id="stars-display">
                     <span class="star"></span>
@@ -176,38 +138,36 @@
                 </div>
                 <div class="level-stats">
                     <p>Score: <span id="level-score">0</span></p>
-                    <p>Time: <span id="level-time">0:00</span></p>
                     <p>Gems: <span id="level-gems">0</span></p>
                 </div>
                 <button class="menu-btn" id="next-level-btn">Next Level</button>
-                <button class="menu-btn" id="replay-btn">Replay</button>
+                <button class="menu-btn secondary" id="replay-btn">Replay</button>
             </div>
         </div>
 
         <!-- Game Over Screen -->
         <div id="game-over" class="screen overlay">
-            <div class="gameover-content">
+            <div class="popup-content">
                 <h2>GAME OVER</h2>
-                <p>Final Score: <span id="final-score">0</span></p>
-                <input type="text" id="player-name" placeholder="Enter your name" maxlength="15">
+                <p class="final-score">Score: <span id="final-score">0</span></p>
+                <input type="text" id="player-name" placeholder="Your name" maxlength="10">
                 <button class="menu-btn" id="save-score-btn">Save Score</button>
-                <button class="menu-btn" id="retry-btn">Try Again</button>
-                <button class="menu-btn" id="menu-btn">Main Menu</button>
+                <button class="menu-btn secondary" id="retry-btn">Try Again</button>
+                <button class="menu-btn secondary" id="menu-btn">Menu</button>
             </div>
         </div>
 
         <!-- Victory Screen -->
         <div id="victory-screen" class="screen overlay">
-            <div class="victory-content">
-                <h2>CONGRATULATIONS!</h2>
-                <p class="victory-text">You've completed all levels!</p>
+            <div class="popup-content victory">
+                <h2>YOU WIN!</h2>
+                <p class="victory-text">All levels complete!</p>
                 <div class="total-stats">
                     <p>Total Score: <span id="total-score">0</span></p>
-                    <p>Total Time: <span id="total-time">0:00</span></p>
                     <p>Total Gems: <span id="total-gems">0</span></p>
                 </div>
                 <button class="menu-btn" id="play-again-btn">Play Again</button>
-                <button class="menu-btn" id="victory-menu-btn">Main Menu</button>
+                <button class="menu-btn secondary" id="victory-menu-btn">Menu</button>
             </div>
         </div>
     </div>
