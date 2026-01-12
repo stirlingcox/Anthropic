@@ -8,54 +8,61 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
     <meta name="theme-color" content="#1a1a2e">
-    <title>Kenzie</title>
+    <title>Kenzie on Ice</title>
     <link rel="stylesheet" href="kenzie.css">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23fd79a8'/><text x='50' y='65' text-anchor='middle' font-size='40'>^_^</text></svg>">
 </head>
 <body>
     <div class="game-container">
         <!-- Main Menu Screen -->
         <div id="main-menu" class="screen active">
+            <div class="snowflakes" aria-hidden="true">
+                <div class="snowflake">*</div>
+                <div class="snowflake">*</div>
+                <div class="snowflake">*</div>
+                <div class="snowflake">*</div>
+                <div class="snowflake">*</div>
+            </div>
             <div class="title-container">
                 <h1 class="game-title">KENZIE</h1>
-                <p class="subtitle">Tap to Adventure!</p>
+                <p class="subtitle">On Ice</p>
                 <div class="kenzie-logo"></div>
             </div>
             <div class="menu-buttons">
-                <button class="menu-btn" id="start-btn">Play</button>
+                <button class="menu-btn" id="start-btn">Skate!</button>
                 <button class="menu-btn secondary" id="how-to-play-btn">How to Play</button>
-                <button class="menu-btn secondary" id="high-scores-btn">Scores</button>
+                <button class="menu-btn secondary" id="high-scores-btn">Leaderboard</button>
             </div>
         </div>
 
         <!-- How to Play Screen -->
         <div id="how-to-play" class="screen">
-            <h2>How to Play</h2>
+            <h2>How to Skate</h2>
             <div class="instructions">
                 <div class="instruction-item">
                     <div class="touch-demo left-right"></div>
-                    <span class="desc">Tap left/right to move</span>
+                    <span class="desc">Glide left & right</span>
                 </div>
                 <div class="instruction-item">
                     <div class="touch-demo jump"></div>
-                    <span class="desc">Tap JUMP to jump</span>
+                    <span class="desc">Jump over obstacles</span>
                 </div>
                 <div class="instruction-item">
                     <div class="touch-demo double-tap"></div>
-                    <span class="desc">Tap again to double jump!</span>
+                    <span class="desc">Double jump for big air!</span>
                 </div>
                 <div class="instruction-item">
                     <div class="touch-demo action"></div>
-                    <span class="desc">Tap ACT for powers</span>
+                    <span class="desc">Spin attack!</span>
                 </div>
             </div>
             <div class="game-tips">
-                <h3>Goals</h3>
+                <h3>Skating Tips</h3>
                 <ul>
-                    <li>Collect gems to unlock portal</li>
-                    <li>Jump on enemies to defeat them</li>
-                    <li>Grab power-ups for abilities</li>
-                    <li>Reach the portal to win!</li>
+                    <li>Collect stars for points</li>
+                    <li>Jump on cones to clear them</li>
+                    <li>Grab power-ups for boosts</li>
+                    <li>Reach the trophy to win!</li>
+                    <li>Watch out - ice is slippery!</li>
                 </ul>
             </div>
             <button class="menu-btn" id="back-from-help">Back</button>
@@ -63,14 +70,14 @@
 
         <!-- High Scores Screen -->
         <div id="high-scores" class="screen">
-            <h2>High Scores</h2>
+            <h2>Leaderboard</h2>
             <div class="scores-list" id="scores-list"></div>
             <button class="menu-btn" id="back-from-scores">Back</button>
         </div>
 
         <!-- Level Select Screen -->
         <div id="level-select" class="screen">
-            <h2>Select Level</h2>
+            <h2>Select Rink</h2>
             <div class="levels-grid" id="levels-grid"></div>
             <button class="menu-btn" id="back-from-levels">Back</button>
         </div>
@@ -83,15 +90,15 @@
                         <div class="health-fill" id="health-fill"></div>
                     </div>
                     <div class="lives-display">
-                        <span class="heart-icon"></span><span id="lives-count">3</span>
+                        <span class="skate-icon"></span><span id="lives-count">3</span>
                     </div>
                 </div>
                 <div class="hud-center">
-                    <div class="level-display">Lv.<span id="current-level">1</span></div>
+                    <div class="level-display">Rink <span id="current-level">1</span></div>
                 </div>
                 <div class="hud-right">
                     <div class="gems-display">
-                        <span class="gem-icon"></span><span id="gems-count">0</span>
+                        <span class="star-icon"></span><span id="gems-count">0</span>
                     </div>
                     <div class="score-display"><span id="score">0</span></div>
                 </div>
@@ -111,7 +118,7 @@
                     </button>
                 </div>
                 <div class="control-right">
-                    <button class="touch-btn action-btn" id="btn-action">ACT</button>
+                    <button class="touch-btn action-btn" id="btn-action">SPIN</button>
                     <button class="touch-btn jump-btn" id="btn-jump">JUMP</button>
                 </div>
             </div>
@@ -130,7 +137,7 @@
         <!-- Level Complete Screen -->
         <div id="level-complete" class="screen overlay">
             <div class="popup-content">
-                <h2>Level Complete!</h2>
+                <h2>Routine Complete!</h2>
                 <div class="stars-display" id="stars-display">
                     <span class="star"></span>
                     <span class="star"></span>
@@ -138,9 +145,9 @@
                 </div>
                 <div class="level-stats">
                     <p>Score: <span id="level-score">0</span></p>
-                    <p>Gems: <span id="level-gems">0</span></p>
+                    <p>Stars: <span id="level-gems">0</span></p>
                 </div>
-                <button class="menu-btn" id="next-level-btn">Next Level</button>
+                <button class="menu-btn" id="next-level-btn">Next Rink</button>
                 <button class="menu-btn secondary" id="replay-btn">Replay</button>
             </div>
         </div>
@@ -148,9 +155,9 @@
         <!-- Game Over Screen -->
         <div id="game-over" class="screen overlay">
             <div class="popup-content">
-                <h2>GAME OVER</h2>
+                <h2>Fell Down!</h2>
                 <p class="final-score">Score: <span id="final-score">0</span></p>
-                <input type="text" id="player-name" placeholder="Your name" maxlength="10">
+                <input type="text" id="player-name" placeholder="Skater name" maxlength="10">
                 <button class="menu-btn" id="save-score-btn">Save Score</button>
                 <button class="menu-btn secondary" id="retry-btn">Try Again</button>
                 <button class="menu-btn secondary" id="menu-btn">Menu</button>
@@ -160,13 +167,13 @@
         <!-- Victory Screen -->
         <div id="victory-screen" class="screen overlay">
             <div class="popup-content victory">
-                <h2>YOU WIN!</h2>
-                <p class="victory-text">All levels complete!</p>
+                <h2>GOLD MEDAL!</h2>
+                <p class="victory-text">Perfect routine!</p>
                 <div class="total-stats">
                     <p>Total Score: <span id="total-score">0</span></p>
-                    <p>Total Gems: <span id="total-gems">0</span></p>
+                    <p>Total Stars: <span id="total-gems">0</span></p>
                 </div>
-                <button class="menu-btn" id="play-again-btn">Play Again</button>
+                <button class="menu-btn" id="play-again-btn">Skate Again</button>
                 <button class="menu-btn secondary" id="victory-menu-btn">Menu</button>
             </div>
         </div>
