@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>Kenzie on Ice</title>
+    <link rel="stylesheet" href="kenzie.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Main Menu Screen -->
+        <div id="main-menu" class="screen active">
+            <div class="snowflakes" aria-hidden="true">
+                <div class="snowflake">*</div>
+                <div class="snowflake">*</div>
+                <div class="snowflake">*</div>
+                <div class="snowflake">*</div>
+                <div class="snowflake">*</div>
+            </div>
+            <div class="title-container">
+                <h1 class="game-title">KENZIE</h1>
+                <p class="subtitle">On Ice</p>
+                <div class="kenzie-logo"></div>
+            </div>
+            <div class="menu-buttons">
+                <button class="menu-btn" id="start-btn">Skate!</button>
+                <button class="menu-btn secondary" id="how-to-play-btn">How to Play</button>
+                <button class="menu-btn secondary" id="high-scores-btn">Leaderboard</button>
+            </div>
+        </div>
+
+        <!-- How to Play Screen -->
+        <div id="how-to-play" class="screen">
+            <h2>How to Skate</h2>
+            <div class="instructions">
+                <div class="instruction-item">
+                    <div class="touch-demo left-right"></div>
+                    <span class="desc">Glide left & right</span>
+                </div>
+                <div class="instruction-item">
+                    <div class="touch-demo jump"></div>
+                    <span class="desc">Jump over obstacles</span>
+                </div>
+                <div class="instruction-item">
+                    <div class="touch-demo double-tap"></div>
+                    <span class="desc">Double jump for big air!</span>
+                </div>
+                <div class="instruction-item">
+                    <div class="touch-demo action"></div>
+                    <span class="desc">Spin attack!</span>
+                </div>
+            </div>
+            <div class="game-tips">
+                <h3>Skating Tips</h3>
+                <ul>
+                    <li>Collect stars for points</li>
+                    <li>Jump on cones to clear them</li>
+                    <li>Grab power-ups for boosts</li>
+                    <li>Reach the trophy to win!</li>
+                    <li>Watch out - ice is slippery!</li>
+                </ul>
+            </div>
+            <button class="menu-btn" id="back-from-help">Back</button>
+        </div>
+
+        <!-- High Scores Screen -->
+        <div id="high-scores" class="screen">
+            <h2>Leaderboard</h2>
+            <div class="scores-list" id="scores-list"></div>
+            <button class="menu-btn" id="back-from-scores">Back</button>
+        </div>
+
+        <!-- Level Select Screen -->
+        <div id="level-select" class="screen">
+            <h2>Select Rink</h2>
+            <div class="levels-grid" id="levels-grid"></div>
+            <button class="menu-btn" id="back-from-levels">Back</button>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-hud">
+                <div class="hud-left">
+                    <div class="health-bar">
+                        <div class="health-fill" id="health-fill"></div>
+                    </div>
+                    <div class="lives-display">
+                        <span class="skate-icon"></span><span id="lives-count">3</span>
+                    </div>
+                </div>
+                <div class="hud-center">
+                    <div class="level-display">Rink <span id="current-level">1</span></div>
+                </div>
+                <div class="hud-right">
+                    <div class="gems-display">
+                        <span class="star-icon"></span><span id="gems-count">0</span>
+                    </div>
+                    <div class="score-display"><span id="score">0</span></div>
+                </div>
+            </div>
+
+            <canvas id="game-canvas"></canvas>
+
+            <button class="pause-btn" id="pause-btn">II</button>
+
+            <div class="touch-controls">
+                <div class="control-left">
+                    <button class="touch-btn move-btn" id="btn-left">
+                        <span class="arrow-left"></span>
+                    </button>
+                    <button class="touch-btn move-btn" id="btn-right">
+                        <span class="arrow-right"></span>
+                    </button>
+                </div>
+                <div class="control-right">
+                    <button class="touch-btn action-btn" id="btn-action">SPIN</button>
+                    <button class="touch-btn jump-btn" id="btn-jump">JUMP</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pause Screen -->
+        <div id="pause-screen" class="screen overlay">
+            <div class="popup-content">
+                <h2>PAUSED</h2>
+                <button class="menu-btn" id="resume-btn">Resume</button>
+                <button class="menu-btn secondary" id="restart-btn">Restart</button>
+                <button class="menu-btn secondary" id="quit-btn">Quit</button>
+            </div>
+        </div>
+
+        <!-- Level Complete Screen -->
+        <div id="level-complete" class="screen overlay">
+            <div class="popup-content">
+                <h2>Routine Complete!</h2>
+                <div class="stars-display" id="stars-display">
+                    <span class="star"></span>
+                    <span class="star"></span>
+                    <span class="star"></span>
+                </div>
+                <div class="level-stats">
+                    <p>Score: <span id="level-score">0</span></p>
+                    <p>Stars: <span id="level-gems">0</span></p>
+                </div>
+                <button class="menu-btn" id="next-level-btn">Next Rink</button>
+                <button class="menu-btn secondary" id="replay-btn">Replay</button>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="game-over" class="screen overlay">
+            <div class="popup-content">
+                <h2>Fell Down!</h2>
+                <p class="final-score">Score: <span id="final-score">0</span></p>
+                <input type="text" id="player-name" placeholder="Skater name" maxlength="10">
+                <button class="menu-btn" id="save-score-btn">Save Score</button>
+                <button class="menu-btn secondary" id="retry-btn">Try Again</button>
+                <button class="menu-btn secondary" id="menu-btn">Menu</button>
+            </div>
+        </div>
+
+        <!-- Victory Screen -->
+        <div id="victory-screen" class="screen overlay">
+            <div class="popup-content victory">
+                <h2>GOLD MEDAL!</h2>
+                <p class="victory-text">Perfect routine!</p>
+                <div class="total-stats">
+                    <p>Total Score: <span id="total-score">0</span></p>
+                    <p>Total Stars: <span id="total-gems">0</span></p>
+                </div>
+                <button class="menu-btn" id="play-again-btn">Skate Again</button>
+                <button class="menu-btn secondary" id="victory-menu-btn">Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="kenzie.js"></script>
+</body>
+</html>
