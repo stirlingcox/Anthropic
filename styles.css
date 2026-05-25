@@ -2,207 +2,670 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Segoe UI', 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    min-height: 100vh;
-    padding: 20px;
+    background: linear-gradient(180deg, #87CEEB 0%, #98E4FF 30%, #B8F0D8 60%, #7BC67E 100%);
 }
 
-.container {
-    max-width: 1400px;
-    margin: 0 auto;
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
 }
 
-h1 {
+.screen.active {
+    display: flex;
+}
+
+/* ===================== WELCOME SCREEN ===================== */
+
+#welcome-screen {
+    background: linear-gradient(180deg, #FFB6C1 0%, #FFD1DC 30%, #FFEFD5 60%, #E6E6FA 100%);
+    justify-content: center;
+    align-items: center;
+}
+
+.welcome-content {
     text-align: center;
+    animation: fadeInUp 1s ease-out;
+}
+
+.welcome-butterfly {
+    font-size: 80px;
+    animation: floatButterfly 3s ease-in-out infinite;
+}
+
+.game-title {
+    font-size: 42px;
+    color: #FF69B4;
+    text-shadow: 3px 3px 0 #FFF, -1px -1px 0 #FFB6C1;
+    margin: 15px 0;
+    line-height: 1.2;
+    letter-spacing: 1px;
+}
+
+.welcome-flowers {
+    font-size: 40px;
+    margin: 20px 0;
+    animation: pulse 2s ease-in-out infinite;
+    letter-spacing: 8px;
+}
+
+.play-button {
+    background: linear-gradient(135deg, #FF69B4, #FF1493);
+    border: 4px solid #FFF;
+    border-radius: 50px;
+    padding: 18px 60px;
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.5), 0 0 30px rgba(255, 105, 180, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: bounceIn 1s ease-out 0.5s both;
+}
+
+.play-button:active {
+    transform: scale(0.95);
+}
+
+.play-text {
+    font-size: 32px;
     color: white;
-    margin-bottom: 30px;
-    font-size: 2.5em;
+    font-weight: bold;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Add Task Section */
-.add-task-section {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
+.welcome-sparkles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
 }
 
-#taskInput {
-    flex: 1;
-    padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: border-color 0.3s;
+.sparkle {
+    position: absolute;
+    font-size: 24px;
+    animation: twinkle 2s ease-in-out infinite;
+}
+.s1 { top: 10%; left: 15%; animation-delay: 0s; }
+.s2 { top: 20%; right: 15%; animation-delay: 0.4s; }
+.s3 { top: 60%; left: 10%; animation-delay: 0.8s; }
+.s4 { top: 70%; right: 10%; animation-delay: 1.2s; }
+.s5 { top: 40%; left: 50%; animation-delay: 1.6s; }
+
+/* ===================== GAME SCREEN ===================== */
+
+#game-screen {
+    background: linear-gradient(180deg, #87CEEB 0%, #98E4FF 25%, #C8F7C5 55%, #7BC67E 75%, #5DA85D 100%);
 }
 
-#taskInput:focus {
-    outline: none;
-    border-color: #667eea;
-}
-
-#categorySelect {
-    padding: 12px 15px;
-    border: 2px solid #e0e0e0;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    background: white;
-}
-
-#addTaskBtn {
-    padding: 12px 30px;
-    background: #667eea;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-#addTaskBtn:hover {
-    background: #5568d3;
-}
-
-/* Categories Grid */
-.categories-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
-
-.category {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.category-header {
-    padding: 15px 20px;
+/* Header */
+.game-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 2px solid #f0f0f0;
+    padding: 12px 16px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 10;
 }
 
-.category[data-category="work"] .category-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-}
-
-.category[data-category="personal"] .category-header {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-    color: white;
-}
-
-.category[data-category="urgent"] .category-header {
-    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-    color: white;
-}
-
-.category[data-category="completed"] .category-header {
-    background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
-    color: white;
-}
-
-.category-header h2 {
-    font-size: 1.3em;
-}
-
-.task-count {
-    background: rgba(255, 255, 255, 0.3);
-    padding: 5px 12px;
+.star-counter, .butterfly-counter {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 6px 14px;
     border-radius: 20px;
+    font-size: 20px;
     font-weight: bold;
+    color: #333;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Task List */
-.task-list {
-    min-height: 200px;
-    padding: 15px;
+.star-icon, .butterfly-icon {
+    font-size: 24px;
 }
 
-.task-list.drag-over {
-    background: #f0f0f0;
+.level-display {
+    font-size: 18px;
+    font-weight: bold;
+    color: #FFF;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #FF69B4, #BA55D3);
+    padding: 6px 16px;
+    border-radius: 20px;
 }
 
-/* Task Item */
-.task-item {
-    background: #f9f9f9;
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 10px;
-    cursor: move;
-    transition: all 0.3s;
+/* Tool Bar */
+.tool-bar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 12px;
+    padding: 10px 16px;
+    z-index: 10;
+}
+
+.tool-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 3px solid transparent;
+    border-radius: 16px;
+    padding: 8px 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tool-btn.active {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: #FF69B4;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
+    transform: scale(1.05);
+}
+
+.tool-btn:active {
+    transform: scale(0.95);
+}
+
+.tool-emoji {
+    font-size: 28px;
+}
+
+.tool-label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #666;
+}
+
+.tool-btn.active .tool-label {
+    color: #FF69B4;
+}
+
+.magic-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #FF1493;
+    color: white;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+/* Garden Area */
+.garden-area {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    z-index: 5;
+}
+
+.garden-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-width: 360px;
+    width: 100%;
+    aspect-ratio: 1;
+}
+
+.garden-plot {
+    background: radial-gradient(ellipse at center, #8B6914 0%, #6B4E12 60%, #5A3E10 100%);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    border: 3px solid #5A3E10;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2), 0 3px 6px rgba(0, 0, 0, 0.15);
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: visible;
+}
+
+.garden-plot:active {
+    transform: scale(0.95);
+}
+
+.garden-plot.planted {
+    background: radial-gradient(ellipse at center, #9B7424 0%, #7B5E18 60%, #6A4E14 100%);
+}
+
+.garden-plot.bloomed {
+    background: radial-gradient(ellipse at center, #A08030 0%, #8B6B20 60%, #7A5B18 100%);
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.15), 0 3px 10px rgba(255, 105, 180, 0.3);
+}
+
+.plot-content {
+    font-size: 48px;
+    transition: transform 0.3s;
+    position: relative;
+    z-index: 2;
+}
+
+.plot-content.bounce {
+    animation: plantBounce 0.5s ease-out;
+}
+
+.plot-content.grow {
+    animation: growFlower 0.6s ease-out;
+}
+
+.plot-content.bloom {
+    animation: bloomFlower 0.8s ease-out;
+}
+
+.plot-content.magic-grow {
+    animation: magicGrow 1s ease-out;
+}
+
+.plot-sparkle {
+    position: absolute;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.water-drop {
+    position: absolute;
+    font-size: 20px;
+    animation: waterDrop 0.6s ease-out forwards;
+    pointer-events: none;
+    z-index: 4;
+}
+
+/* Butterfly Area */
+.butterfly-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 15;
+}
+
+.flying-butterfly {
+    position: absolute;
+    font-size: 36px;
+    pointer-events: auto;
+    cursor: pointer;
+    animation: butterflyFloat 4s ease-in-out infinite;
+    transition: transform 0.1s;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.flying-butterfly:active {
+    transform: scale(1.3);
+}
+
+.flying-butterfly.caught {
+    animation: butterflyCaught 0.5s ease-out forwards;
+    pointer-events: none;
+}
+
+/* Particle Area */
+.particle-area {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.particle {
+    position: absolute;
+    pointer-events: none;
+    animation: particleFly 1s ease-out forwards;
+}
+
+.star-particle {
+    font-size: 20px;
+    animation: starCollect 0.8s ease-out forwards;
+}
+
+/* Celebration */
+.celebration-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.celebration-overlay.active {
+    display: flex;
+}
+
+.celebration-content {
+    background: linear-gradient(135deg, #FFF0F5, #FFE4F0, #F0F0FF);
+    border-radius: 30px;
+    padding: 30px 40px;
+    text-align: center;
+    animation: celebrationPop 0.5s ease-out;
+    box-shadow: 0 10px 40px rgba(255, 105, 180, 0.4);
+    border: 4px solid #FF69B4;
+    max-width: 320px;
+}
+
+.celebration-emoji {
+    font-size: 70px;
+    animation: celebrationBounce 1s ease-in-out infinite;
+}
+
+.celebration-content h2 {
+    font-size: 28px;
+    color: #FF69B4;
+    margin: 10px 0;
+}
+
+.celebration-content p {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.celebration-stars {
+    font-size: 22px;
+    color: #FFD700;
+    font-weight: bold;
+    margin: 15px 0;
+    animation: pulse 1s ease-in-out infinite;
+}
+
+.next-garden-btn {
+    background: linear-gradient(135deg, #FF69B4, #FF1493);
+    color: white;
+    border: 3px solid white;
+    border-radius: 25px;
+    padding: 14px 35px;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.5);
+    transition: transform 0.2s;
+}
+
+.next-garden-btn:active {
+    transform: scale(0.95);
+}
+
+/* Footer */
+.game-footer {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 10;
+}
+
+.emily-character {
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
-.task-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.emily-emoji {
+    font-size: 36px;
+    animation: emilyBounce 2s ease-in-out infinite;
 }
 
-.task-item.dragging {
-    opacity: 0.5;
-    transform: rotate(5deg);
-}
-
-.task-content {
-    flex: 1;
-    font-size: 16px;
-    color: #333;
-}
-
-.task-delete {
-    background: #ff4757;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 12px;
-    cursor: pointer;
+.emily-name {
+    font-size: 12px;
     font-weight: bold;
-    transition: background 0.3s;
+    color: #FF69B4;
+    text-shadow: 1px 1px 0 white;
 }
 
-.task-delete:hover {
-    background: #ff3838;
+.garden-progress {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
-/* Empty State */
-.task-list:empty::after {
-    content: 'Drop tasks here';
-    display: block;
+.progress-bar {
+    height: 16px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #FF69B4, #FF1493, #BA55D3);
+    border-radius: 8px;
+    width: 0%;
+    transition: width 0.5s ease-out;
+}
+
+.progress-text {
+    font-size: 13px;
+    color: #555;
+    font-weight: bold;
     text-align: center;
-    color: #999;
-    padding: 40px 20px;
-    font-style: italic;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .categories-grid {
-        grid-template-columns: 1fr;
-    }
+/* Cloud decorations */
+.cloud {
+    position: fixed;
+    font-size: 40px;
+    opacity: 0.6;
+    z-index: 1;
+    animation: cloudDrift 20s linear infinite;
+    pointer-events: none;
+}
 
-    .add-task-section {
-        flex-direction: column;
-    }
+.cloud:nth-child(1) { top: 5%; animation-duration: 25s; font-size: 50px; }
+.cloud:nth-child(2) { top: 12%; animation-duration: 30s; animation-delay: -10s; }
+.cloud:nth-child(3) { top: 8%; animation-duration: 22s; animation-delay: -5s; font-size: 35px; }
 
-    h1 {
-        font-size: 2em;
+/* Sun */
+.sun {
+    position: fixed;
+    top: 3%;
+    right: 5%;
+    font-size: 50px;
+    z-index: 1;
+    animation: sunPulse 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* ===================== ANIMATIONS ===================== */
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floatButterfly {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes bounceIn {
+    0% { opacity: 0; transform: scale(0.3); }
+    50% { transform: scale(1.1); }
+    70% { transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
+}
+
+@keyframes plantBounce {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.3); }
+    70% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+@keyframes growFlower {
+    0% { transform: scale(0.8) translateY(5px); }
+    50% { transform: scale(1.2) translateY(-5px); }
+    100% { transform: scale(1) translateY(0); }
+}
+
+@keyframes bloomFlower {
+    0% { transform: scale(0.8) rotate(-10deg); }
+    30% { transform: scale(1.3) rotate(10deg); }
+    60% { transform: scale(0.95) rotate(-5deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes magicGrow {
+    0% { transform: scale(0.5) rotate(-20deg); filter: hue-rotate(0deg); }
+    25% { filter: hue-rotate(90deg); }
+    50% { transform: scale(1.4) rotate(10deg); filter: hue-rotate(180deg); }
+    75% { filter: hue-rotate(270deg); }
+    100% { transform: scale(1) rotate(0deg); filter: hue-rotate(360deg); }
+}
+
+@keyframes waterDrop {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(30px) scale(0.5); }
+}
+
+@keyframes butterflyFloat {
+    0% { transform: translateY(0) rotate(-3deg) scaleX(1); }
+    25% { transform: translateY(-15px) rotate(3deg) scaleX(-1); }
+    50% { transform: translateY(-5px) rotate(-3deg) scaleX(1); }
+    75% { transform: translateY(-20px) rotate(3deg) scaleX(-1); }
+    100% { transform: translateY(0) rotate(-3deg) scaleX(1); }
+}
+
+@keyframes butterflyCaught {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.5) rotate(20deg); opacity: 0.8; }
+    100% { transform: scale(0) rotate(60deg) translateY(-60px); opacity: 0; }
+}
+
+@keyframes particleFly {
+    0% { opacity: 1; transform: translate(0, 0) scale(1); }
+    100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.3); }
+}
+
+@keyframes starCollect {
+    0% { opacity: 1; transform: translate(0, 0) scale(1); }
+    100% { opacity: 0; transform: translateY(-80px) scale(1.5); }
+}
+
+@keyframes celebrationPop {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes celebrationBounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-15px) rotate(-10deg); }
+    75% { transform: translateY(-10px) rotate(10deg); }
+}
+
+@keyframes emilyBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+@keyframes cloudDrift {
+    0% { transform: translateX(-150px); }
+    100% { transform: translateX(calc(100vw + 150px)); }
+}
+
+@keyframes sunPulse {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.1) rotate(10deg); }
+}
+
+@keyframes rainbowShift {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* Score popup animation */
+.score-popup {
+    position: absolute;
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
+    animation: scoreFloat 1s ease-out forwards;
+    z-index: 25;
+}
+
+@keyframes scoreFloat {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-60px) scale(1.3); }
+}
+
+/* Responsive adjustments */
+@media (max-height: 600px) {
+    .garden-grid {
+        max-width: 280px;
+    }
+    .plot-content {
+        font-size: 36px;
+    }
+    .game-title {
+        font-size: 32px;
+    }
+}
+
+@media (min-width: 500px) {
+    .garden-grid {
+        max-width: 400px;
+    }
+    .plot-content {
+        font-size: 56px;
     }
 }
