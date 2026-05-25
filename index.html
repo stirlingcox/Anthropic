@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
     <title>Emily's Unicorn Sky Jump!</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="apple-touch-icon" href="data:,">
 </head>
 <body>
     <!-- WELCOME SCREEN -->
@@ -34,27 +33,27 @@
             <div class="howto-steps">
                 <div class="howto-step">
                     <div class="step-icon">👆</div>
-                    <div class="step-text"><strong>TAP</strong> anywhere to jump!</div>
+                    <div class="step-text"><strong>TAP</strong> to jump!</div>
                 </div>
                 <div class="howto-step">
                     <div class="step-icon">👆👆</div>
-                    <div class="step-text"><strong>TAP AGAIN</strong> in the air for a double jump!</div>
+                    <div class="step-text"><strong>TAP MORE</strong> to jump again and again!</div>
                 </div>
                 <div class="howto-step">
                     <div class="step-icon">⭐</div>
-                    <div class="step-text">Collect <strong>stars</strong> and <strong>gems</strong> for points!</div>
+                    <div class="step-text">Catch all the <strong>stars</strong> and <strong>gems!</strong></div>
                 </div>
                 <div class="howto-step">
                     <div class="step-icon">🌈</div>
-                    <div class="step-text">Grab <strong>rainbows</strong> for super speed!</div>
+                    <div class="step-text">Grab <strong>rainbows</strong> to go super fast!</div>
                 </div>
                 <div class="howto-step">
-                    <div class="step-icon">🦄</div>
-                    <div class="step-text">Collect <strong>wings</strong> to fly!</div>
+                    <div class="step-icon">🐰</div>
+                    <div class="step-text">Meet cute <strong>animal friends!</strong></div>
                 </div>
                 <div class="howto-step">
-                    <div class="step-icon">💜</div>
-                    <div class="step-text">Don't fall off the platforms!</div>
+                    <div class="step-icon">💖</div>
+                    <div class="step-text">You have <strong>3 hearts</strong> - clouds catch you if you fall!</div>
                 </div>
             </div>
             <button class="btn btn-play" id="btn-play2">Let's Go!</button>
@@ -73,6 +72,7 @@
                 </div>
             </div>
             <div class="hud-center">
+                <div class="hud-lives" id="hud-lives">💖 💖 💖</div>
                 <div class="hud-world" id="hud-world">Flower Meadow</div>
             </div>
             <div class="hud-right">
@@ -84,13 +84,17 @@
         </div>
         <div class="power-indicator" id="power-indicator"></div>
         <div id="combo-display" class="combo-display"></div>
+        <div id="encouragement" class="encouragement"></div>
+        <div id="rescue-overlay" class="rescue-overlay">
+            <div class="rescue-text">☁️ Cloud Rescue! ☁️</div>
+        </div>
     </div>
 
     <!-- GAME OVER SCREEN -->
     <div id="screen-gameover" class="screen">
         <div class="screen-content gameover-content">
             <div class="gameover-emoji" id="gameover-emoji">🦄</div>
-            <h2 class="gameover-title">Great Job Emily!</h2>
+            <h2 class="gameover-title" id="gameover-title">Amazing Job Emily!</h2>
             <div class="gameover-stats">
                 <div class="stat-row">
                     <span class="stat-label">⭐ Stars</span>
@@ -103,6 +107,10 @@
                 <div class="stat-row">
                     <span class="stat-label">🌍 World</span>
                     <span class="stat-value" id="final-world">1</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">🐰 Friends</span>
+                    <span class="stat-value" id="final-friends">0</span>
                 </div>
                 <div class="stat-row new-best" id="new-best-row" style="display:none">
                     <span>🎉 NEW BEST! 🎉</span>
