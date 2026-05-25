@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0">
-    <title>Emily's Unicorn Sky Jump!</title>
+    <title>Emily & Conor's Sky Jump Adventure!</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- WELCOME SCREEN -->
     <div id="screen-welcome" class="screen active">
-        <div class="screen-content welcome-content">
-            <div class="title-character">🦄</div>
-            <h1 class="main-title">Emily's<br>Unicorn Sky Jump!</h1>
+        <div class="screen-content">
+            <div class="title-character">🦄🦍</div>
+            <h1 class="main-title">Emily & Conor's<br>Sky Jump!</h1>
             <div class="title-stars">✨ 🌈 ✨</div>
             <button class="btn btn-play" id="btn-play">PLAY!</button>
             <button class="btn btn-how" id="btn-how">How to Play</button>
@@ -19,10 +19,29 @@
         <div class="bg-decor">
             <span class="float-emoji f1">⭐</span>
             <span class="float-emoji f2">🦋</span>
-            <span class="float-emoji f3">🌸</span>
+            <span class="float-emoji f3">🦍</span>
             <span class="float-emoji f4">💫</span>
             <span class="float-emoji f5">🌟</span>
             <span class="float-emoji f6">🎀</span>
+        </div>
+    </div>
+
+    <!-- CHARACTER SELECT -->
+    <div id="screen-charselect" class="screen">
+        <div class="screen-content">
+            <h2 class="select-title">Who are you?</h2>
+            <div class="char-options">
+                <button class="char-btn" id="char-emily">
+                    <div class="char-emoji">🦄</div>
+                    <div class="char-name">Emily</div>
+                    <div class="char-desc">Magical Unicorn!</div>
+                </button>
+                <button class="char-btn" id="char-conor">
+                    <div class="char-emoji">🦍</div>
+                    <div class="char-name">Conor</div>
+                    <div class="char-desc">Super Gorilla!</div>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -41,19 +60,19 @@
                 </div>
                 <div class="howto-step">
                     <div class="step-icon">⭐</div>
-                    <div class="step-text">Catch all the <strong>stars</strong> and <strong>gems!</strong></div>
+                    <div class="step-text">Catch <strong>stars</strong> and <strong>gems!</strong></div>
                 </div>
                 <div class="howto-step">
-                    <div class="step-icon">🌈</div>
-                    <div class="step-text">Grab <strong>rainbows</strong> to go super fast!</div>
+                    <div class="step-icon">🦍</div>
+                    <div class="step-text"><strong>Gorilla friends</strong> give super bounces!</div>
                 </div>
                 <div class="howto-step">
-                    <div class="step-icon">🐰</div>
-                    <div class="step-text">Meet cute <strong>animal friends!</strong></div>
+                    <div class="step-icon">🏁</div>
+                    <div class="step-text">Reach the <strong>finish line</strong> to beat each world!</div>
                 </div>
                 <div class="howto-step">
                     <div class="step-icon">💖</div>
-                    <div class="step-text">You have <strong>3 hearts</strong> - clouds catch you if you fall!</div>
+                    <div class="step-text">You have <strong>3 hearts</strong> - clouds catch you!</div>
                 </div>
             </div>
             <button class="btn btn-play" id="btn-play2">Let's Go!</button>
@@ -82,6 +101,10 @@
                 </div>
             </div>
         </div>
+        <div class="world-progress-bar" id="world-progress-bar">
+            <div class="world-progress-fill" id="world-progress-fill"></div>
+            <span class="world-progress-flag">🏁</span>
+        </div>
         <div class="power-indicator" id="power-indicator"></div>
         <div id="combo-display" class="combo-display"></div>
         <div id="encouragement" class="encouragement"></div>
@@ -90,11 +113,48 @@
         </div>
     </div>
 
+    <!-- WORLD COMPLETE SCREEN -->
+    <div id="screen-worldcomplete" class="screen">
+        <div class="screen-content">
+            <div class="complete-emoji">🏁</div>
+            <h2 class="complete-title" id="complete-title">World Complete!</h2>
+            <div class="complete-world" id="complete-world-name">Flower Meadow</div>
+            <div class="complete-stars">⭐ <span id="complete-score">0</span> Stars ⭐</div>
+            <div class="complete-friends">🦍 <span id="complete-friends">0</span> Friends Met</div>
+            <button class="btn btn-play" id="btn-nextworld">Next World!</button>
+        </div>
+    </div>
+
+    <!-- VICTORY SCREEN -->
+    <div id="screen-victory" class="screen">
+        <div class="screen-content">
+            <div class="victory-emoji" id="victory-emoji">🏆</div>
+            <h2 class="victory-title" id="victory-title">YOU WIN!</h2>
+            <p class="victory-sub" id="victory-sub">Amazing job!</p>
+            <div class="victory-stats">
+                <div class="stat-row">
+                    <span class="stat-label">⭐ Stars</span>
+                    <span class="stat-value" id="victory-score">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">🦍 Friends</span>
+                    <span class="stat-value" id="victory-friends">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">🏆 Best</span>
+                    <span class="stat-value" id="victory-best">0</span>
+                </div>
+            </div>
+            <button class="btn btn-play" id="btn-playagain">Play Again!</button>
+            <button class="btn btn-back" id="btn-menu2">Menu</button>
+        </div>
+    </div>
+
     <!-- GAME OVER SCREEN -->
     <div id="screen-gameover" class="screen">
-        <div class="screen-content gameover-content">
+        <div class="screen-content">
             <div class="gameover-emoji" id="gameover-emoji">🦄</div>
-            <h2 class="gameover-title" id="gameover-title">Amazing Job Emily!</h2>
+            <h2 class="gameover-title" id="gameover-title">Great Job!</h2>
             <div class="gameover-stats">
                 <div class="stat-row">
                     <span class="stat-label">⭐ Stars</span>
@@ -109,7 +169,7 @@
                     <span class="stat-value" id="final-world">1</span>
                 </div>
                 <div class="stat-row">
-                    <span class="stat-label">🐰 Friends</span>
+                    <span class="stat-label">🦍 Friends</span>
                     <span class="stat-value" id="final-friends">0</span>
                 </div>
                 <div class="stat-row new-best" id="new-best-row" style="display:none">
